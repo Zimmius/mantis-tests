@@ -15,6 +15,8 @@ namespace mantis_tests
         protected IWebDriver driver;
         protected string baseURL;
 
+        protected LoginHelper loginHelper;
+
         public RegistrationHelper Registration { get; set; }
         public FtpHelper Ftp { get; set; }
 
@@ -26,6 +28,7 @@ namespace mantis_tests
             baseURL = "http://localhost/addressbook";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
+            loginHelper = new LoginHelper(this);
         }
 
         ~ApplicationManager()
@@ -45,7 +48,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.25.2/login_page.php";
+                newInstance.driver.Url = "http://localhost/mantisbt-2.25.3/login_page.php";
                 app.Value = newInstance;
             }
             return app.Value;
@@ -58,5 +61,13 @@ namespace mantis_tests
                 return driver;
             }
         }
+
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+        }        
     }
 }
