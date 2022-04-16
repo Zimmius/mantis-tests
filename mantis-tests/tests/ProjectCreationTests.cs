@@ -13,6 +13,30 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
+            List<ProjectData> oldList = app.Project.GetProjectsList();
+
+            ProjectData project = new ProjectData("TestProject")
+            {
+                Description = "TestProjectCreationTest"
+            };
+
+            foreach (ProjectData item in oldList)
+            {
+                if (item.Name == project.Name)
+                {
+                    app.Project.Delete(item);
+                }
+            }
+            oldList = app.Project.GetProjectsList();
+
+            app.Project.CreateProject(project);
+
+            List<ProjectData> newList = app.Project.GetProjectsList();
+            oldList.Add(project);
+            oldList.Sort();
+            newList.Sort();
+            Assert.AreEqual(oldList, newList);
+
 
         }
     }

@@ -16,6 +16,8 @@ namespace mantis_tests
         protected string baseURL;
 
         protected LoginHelper loginHelper;
+        protected ManagementMenuHelper managementMenuHelper;
+        protected ProjectManagementHelper projectManagementHelper;
 
         public RegistrationHelper Registration { get; set; }
         public FtpHelper Ftp { get; set; }
@@ -25,10 +27,12 @@ namespace mantis_tests
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost/mantisbt-2.25.3";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
             loginHelper = new LoginHelper(this);
+            managementMenuHelper = new ManagementMenuHelper(this, baseURL);
+            projectManagementHelper = new ProjectManagementHelper(this);
         }
 
         ~ApplicationManager()
@@ -68,6 +72,22 @@ namespace mantis_tests
             {
                 return loginHelper;
             }
-        }        
+        }   
+        
+        public ManagementMenuHelper Management
+        {
+            get 
+            { 
+                return managementMenuHelper; 
+            }
+        }
+
+        public ProjectManagementHelper Project
+        {
+            get
+            {
+                return projectManagementHelper; 
+            }
+        }
     }
 }
