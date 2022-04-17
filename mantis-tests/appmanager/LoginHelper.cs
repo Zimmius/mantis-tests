@@ -41,7 +41,7 @@ namespace mantis_tests
 
         public bool IsLoggedIn()
         {
-            return IsElementPresent(By.Name("logout"));
+            return IsElementPresent(By.CssSelector(".user-info"));
         }
 
         public bool IsLoggedIn(AccountData account)
@@ -52,8 +52,8 @@ namespace mantis_tests
 
         private string GetLoggedUserName()
         {
-            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
-            return text.Substring(1, text.Length - 2);
+            string text = driver.FindElement(By.CssSelector(".user-info")).Text;
+            return text;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace mantis_tests
         protected LoginHelper loginHelper;
         protected ManagementMenuHelper managementMenuHelper;
         protected ProjectManagementHelper projectManagementHelper;
+        protected NavigationHelper navigationHelper;
 
         public RegistrationHelper Registration { get; set; }
         public FtpHelper Ftp { get; set; }
@@ -33,8 +34,9 @@ namespace mantis_tests
             loginHelper = new LoginHelper(this);
             managementMenuHelper = new ManagementMenuHelper(this, baseURL);
             projectManagementHelper = new ProjectManagementHelper(this);
+            navigationHelper = new NavigationHelper(this, baseURL);
         }
-
+        
         ~ApplicationManager()
         {
             try
@@ -87,6 +89,14 @@ namespace mantis_tests
             get
             {
                 return projectManagementHelper; 
+            }
+        }
+
+        public NavigationHelper Navigator
+        {
+            get
+            {
+                return navigationHelper;
             }
         }
     }

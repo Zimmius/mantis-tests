@@ -21,7 +21,7 @@ namespace mantis_tests
 
         public void GoToManagePage()
         {
-            if (driver.Url == baseURL + "/manage_overview_page.php")
+            if (driver.Url.Contains(baseURL + "/manage_"))
             {
                 return;
             }

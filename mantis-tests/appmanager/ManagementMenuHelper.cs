@@ -17,13 +17,13 @@ namespace mantis_tests
             this.baseURL = baseURL;
         }
 
-        public void openProjectManagementTab()
+        public void GoToProjectManagementTab()
         {
-            if (driver.Url == baseURL + "/manage_overview_page.php")
+            if (driver.Url == baseURL + "/manage_proj_page.php")
             {
                 return;
             }
-            driver.FindElement(By.LinkText("Управление проектами"));
+            driver.FindElement(By.LinkText("Управление проектами")).Click() ;
         }
     }
 }

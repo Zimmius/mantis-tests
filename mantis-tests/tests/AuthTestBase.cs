@@ -9,7 +9,7 @@ namespace mantis_tests
 {
     public class AuthTestBase : TestBase
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void SetupLogin()
         {
             app.Auth.Login(new AccountData()
