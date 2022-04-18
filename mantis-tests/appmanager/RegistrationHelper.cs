@@ -19,23 +19,23 @@ namespace mantis_tests
             SubmitRegistration();
         }
 
-        private void OpenRegistrationForm()
+        public void OpenRegistrationForm()
         {
             driver.FindElement(By.XPath("//a[@href='signup_page.php']")).Click();
         }
 
-        private void SubmitRegistration()
+        public void SubmitRegistration()
         {
             driver.FindElement(By.XPath("//input[@value='Зарегистрироваться']")).Click();
         }
 
-        private void FillRegistrationForm(AccountData account)
+        public void FillRegistrationForm(AccountData account)
         {
             driver.FindElement(By.Name("username")).SendKeys(account.Name);
             driver.FindElement(By.Name("email")).SendKeys(account.Email);
         }
 
-        private void OpenMainPage()
+        public void OpenMainPage()
         {
             manager.Driver.Url = "http://localhost/mantisbt-2.25.3/login_page.php";
         }

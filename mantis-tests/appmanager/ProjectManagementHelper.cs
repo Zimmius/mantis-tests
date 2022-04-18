@@ -32,29 +32,51 @@ namespace mantis_tests
             return new List<ProjectData>(projectList);
         }
 
-        internal void Delete(ProjectData project)
+        public List<ProjectData> GetProjectsList(AccountData account)
+        {
+            List<ProjectData> projectList = new List<ProjectData>();
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData[] apiProjects = client.mc_projects_get_user_accessible(account.Name, account.Password);
+            foreach (Mantis.ProjectData project in apiProjects)
+            {
+                projectList.Add(new ProjectData(project.name)
+                {
+                    Description = project.description,
+                    Id = project.id
+                });
+            }
+            return new List<ProjectData>(projectList);
+        }
+
+        public void Delete(ProjectData project)
         {
             goToEditPage(project.Name);
             RemoveProject();
             SubmitRemoveProject();
         }
 
-        private void SubmitRemoveProject()
+        public void Delete(AccountData account, ProjectData project)
+        {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            client.mc_project_delete(account.Name, account.Password, project.Id);
+        }
+
+        public void SubmitRemoveProject()
         {
             driver.FindElement(By.CssSelector(".btn.btn-primary.btn-white.btn-round")).Click();
         }
 
-        private void RemoveProject()
+        public void RemoveProject()
         {
             driver.FindElement(By.CssSelector(".btn.btn-primary.btn-sm.btn-white.btn-round")).Click();
         }
 
-        private void goToEditPage(string name)
+        public void goToEditPage(string name)
         {
             driver.FindElement(By.LinkText(name)).Click();
         }
 
-        internal void CreateProject(ProjectData project)
+        public void CreateProject(ProjectData project)
         {
             manager.Navigator.GoToManagePage();
             manager.Management.GoToProjectManagementTab();
@@ -64,19 +86,28 @@ namespace mantis_tests
             SubmitProjectCreation();
         }
 
-        private void SubmitProjectCreation()
+        public void CreateProject(AccountData account, ProjectData projectData)
+        {
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData project = new Mantis.ProjectData();
+            project.name = projectData.Name;
+            project.description = projectData.Description;
+            client.mc_project_add(account.Name, account.Password, project);
+        }
+
+        public void SubmitProjectCreation()
         {
             driver.FindElement(By.CssSelector(".btn.btn-primary.btn-white.btn-round")).Click();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
 
-        private void FillProjectForm(ProjectData project)
+        public void FillProjectForm(ProjectData project)
         {
             Type(By.Name("name"), project.Name);
             Type(By.Name("description"), project.Description);
         }
 
-        private void InitProjectCreation()
+        public void InitProjectCreation()
         {
             driver.FindElement(By.CssSelector(".btn.btn-primary.btn-white.btn-round")).Click();
         }
